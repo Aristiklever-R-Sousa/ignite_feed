@@ -1,3 +1,7 @@
+/* 16 px o padrão da web */
+/* 1rem -> 16px */
+/* para fazer cálculos de tamanho usando o figma, por exemplo, sempre bom usar a unidade "rem"  */
+
 :root {
   --white: #fff;
   --gray-100: #e1e1e6;
@@ -18,7 +22,7 @@
 }
 
 body {
-  background: var(--green-500);
+  background: var(--gray-900);
   color: var(--gray-300);
 
   -webkit-font-smoothing: antialiased;
