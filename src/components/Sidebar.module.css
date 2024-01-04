@@ -14,6 +14,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  margin-top: calc(0px - 1.5rem - 6px);
+}
+
+.profile .avatar {
+  /* box-sizing: initial; para fazer com que as bordas crescam para fora e não reduzam o conteúdo que tem dentro ou use o calculo abaixo*/
+  width: calc(3rem + 12px); /* Width Img (3rem) + (border left + border right) (8px) + (outline left + outline right) (4px)*/
+  height: calc(3rem + 12px); /* Height Img (3rem) + (border top + border bottom) (8px) + (outline top + outline bottom) (4px)*/
+  border-radius: 8px;
+  border: 4px solid var(--gray-800); /* 4px (left or top) + 4px (right or bottom) = 8px */
+  outline: 2px solid var(--green-500); /* 2px (left or top) + 2px (right or bottom) = 4px */
+}
+
+.profile strong {
+  margin-top: 1rem;
+  color: var(--gray-100);
+  line-height: 1.6;
+}
+
+.profile span {
+  font-size: 0.875rem;
+  color: var(--gray-400);
 }
 
 .sidebar > footer {
@@ -37,4 +59,12 @@
   align-items: center;
   justify-content: center;
 
+  gap: 0.5rem;
+
+  transition: color 0.1s, backgroud-color 0.1s;
+}
+
+.sidebar footer a:hover {
+  background: var(--green-500);
+  color: var(--white);
 }
