@@ -13,7 +13,8 @@ type Author = {
   name: string,
 }
 
-type PostType = {
+export type PostType = {
+  id: string,
   author: Author,
   content: {
     type: 'paragraph' | 'link';
@@ -22,16 +23,20 @@ type PostType = {
   publishedAt: Date,
 }
 
-export function Post({ author, content, publishedAt }: PostType) {
+interface PostProps {
+  post: PostType
+}
+
+export function Post({ post }: PostProps) {
   const publishedDateFormated = new Intl.DateTimeFormat('pt-BR', {
     day: '2-digit',
     month: 'long',
     hour: '2-digit',
     minute: '2-digit',
     // timeStyle: 'full',
-  }).format(publishedAt);
+  }).format(post.publishedAt);
 
-  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+  const publishedDateRelativeToNow = formatDistanceToNow(post.publishedAt, {
     locale: ptBR,
     addSuffix: true,
   });
@@ -74,23 +79,23 @@ export function Post({ author, content, publishedAt }: PostType) {
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src={author.avatarUrl} />
+          <Avatar src={post.author.avatarUrl} />
 
           <div className={styles.authorInfo}>
-            <strong>{author.name}</strong>
-            <span>{author.role}</span>
+            <strong>{post.author.name}</strong>
+            <span>{post.author.role}</span>
           </div>
         </div>
         <time
           title={publishedDateFormated}
-          dateTime={publishedAt.toISOString()}
+          dateTime={post.publishedAt.toISOString()}
         >
           {publishedDateRelativeToNow}
         </time>
       </header>
 
       <div className={styles.content}>
-        {content.map((item, idx) => (
+        {post.content.map((item, idx) => (
           item.type === 'paragraph' ?
             <p key={'content-' + idx}>{item.content}</p> :
             <p key={'content-' + idx}><a>{item.content}</a></p>

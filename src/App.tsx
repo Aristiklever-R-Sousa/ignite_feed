@@ -1,14 +1,14 @@
 import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
-import { Post } from "./components/Post";
+import { Post, PostType } from "./components/Post";
 
 import styles from './App.module.css';
 
 export function App() {
 
-  const posts = [
+  const posts: PostType[] = [
     {
-      id: 1,
+      id: 'post-' + 1,
       author: {
         avatarUrl: 'https://github.com/Aristiklever-R-Sousa.png',
         name: 'Aristiklever R. Sousa',
@@ -22,7 +22,7 @@ export function App() {
       publishedAt: new Date('2024-01-11 21:40:00'),
     },
     {
-      id: 2,
+      id: 'post-' + 2,
       author: {
         avatarUrl: 'https://github.com/Aristiklever-R-Sousa.png',
         name: 'Maiara de Oliveira',
@@ -36,7 +36,7 @@ export function App() {
       publishedAt: new Date('2024-01-10 21:40:00'),
     },
     {
-      id: 3,
+      id: 'post-' + 3,
       author: {
         avatarUrl: 'https://github.com/Aristiklever-R-Sousa.png',
         name: 'Aristiklever R. Sousa',
@@ -60,9 +60,7 @@ export function App() {
           {posts.map((item) => (
             <Post
               key={item.id}
-              author={item.author}
-              content={item.content}
-              publishedAt={item.publishedAt}
+              post={item}
             />
           ))}
         </main>
