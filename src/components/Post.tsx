@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { InvalidEvent, TextareaHTMLAttributes, useState } from 'react';
 import { format, formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale/pt-BR';
 
@@ -58,6 +58,18 @@ export function Post({ author, content, publishedAt }: PostType) {
 
   }
 
+  const handleChangeTextarea = (target: EventTarget & HTMLTextAreaElement) => {
+    setContentComment(target.value);
+    target.setCustomValidity('');
+  }
+
+  const handleInvalidTextarea = (target: EventTarget) => {
+    const element = target as EventTarget & HTMLInputElement;
+    element.setCustomValidity('É necessário preencher!');
+  }
+
+  const isTextareaEmpty = contentComment.length === 0;
+
   return (
     <article className={styles.post}>
       <header>
@@ -102,11 +114,15 @@ export function Post({ author, content, publishedAt }: PostType) {
         <textarea
           value={contentComment}
           placeholder='Deixe um comentário'
-          onChange={({ target }) => setContentComment(target.value)}
+          onChange={({ target }) => handleChangeTextarea(target)}
+          required
+          onInvalid={(event) => handleInvalidTextarea(event.target)}
         />
 
         <footer>
-          <button type='submit'>Publicar</button>
+          <button type='submit' disabled={isTextareaEmpty}>
+            Publicar
+          </button>
         </footer>
       </form>
 
