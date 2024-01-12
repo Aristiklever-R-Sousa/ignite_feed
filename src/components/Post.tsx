@@ -36,18 +36,26 @@ export function Post({ author, content, publishedAt }: PostType) {
     addSuffix: true,
   });
 
-  const [comments, setComments] = useState<{ content: string }[] | []>([]);
+  const [comments, setComments] = useState<{ id: string, content: string }[] | []>([]);
   const [contentComment, setContentComment] = useState('');
 
   const addComment = () => {
     setComments([
       ...comments,
       {
+        id: 'comment-' + comments.length + 1,
         content: contentComment,
       }
     ]);
 
     setContentComment('');
+  }
+
+  const deleteComment = (id: string) => {
+    const commentsWithoutDeleteOne = comments.filter(item => item.id !== id);
+
+    setComments(commentsWithoutDeleteOne);
+
   }
 
   return (
@@ -103,10 +111,12 @@ export function Post({ author, content, publishedAt }: PostType) {
       </form>
 
       <div className={styles.commentList}>
-        {comments.map((item, idx) => (
+        {comments.map((item) => (
           <Comment
-            key={idx}
+            key={item.id}
+            id={item.id}
             content={item.content}
+            onDeleteComment={deleteComment}
           />
         ))}
       </div>

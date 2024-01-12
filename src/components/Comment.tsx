@@ -5,10 +5,12 @@ import styles from './Comment.module.css';
 import { Avatar } from './Avatar';
 
 type CommentType = {
+  id: string,
   content: string,
+  onDeleteComment: (id: string) => void,
 }
 
-export function Comment({ content }: CommentType) {
+export function Comment({ id, content, onDeleteComment }: CommentType) {
 
   const [aplauseCont, setAplauseCont] = useState(0);
 
@@ -24,7 +26,7 @@ export function Comment({ content }: CommentType) {
               <time title='11 de Janeiro às 18:30' dateTime='2024-01-11 18:30:03'>Cerca de 1h atrás</time>
             </div>
 
-            <button title='Deletar comentário'>
+            <button onClick={() => onDeleteComment(id)} title='Deletar comentário'>
               <Trash size={24} />
             </button>
           </header>
