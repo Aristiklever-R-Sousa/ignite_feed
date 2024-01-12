@@ -1,5 +1,5 @@
-import { InvalidEvent, TextareaHTMLAttributes, useState } from 'react';
-import { format, formatDistanceToNow } from 'date-fns';
+import { ChangeEvent, InvalidEvent, useState } from 'react';
+import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale/pt-BR';
 
 import styles from './Post.module.css';
@@ -16,7 +16,7 @@ type Author = {
 type PostType = {
   author: Author,
   content: {
-    type: string;
+    type: 'paragraph' | 'link';
     content: string;
   }[],
   publishedAt: Date,
@@ -58,14 +58,14 @@ export function Post({ author, content, publishedAt }: PostType) {
 
   }
 
-  const handleChangeTextarea = (target: EventTarget & HTMLTextAreaElement) => {
-    setContentComment(target.value);
-    target.setCustomValidity('');
+  const handleChangeTextarea = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setContentComment(event.target.value);
+    event.target.setCustomValidity('');
   }
 
-  const handleInvalidTextarea = (target: EventTarget) => {
-    const element = target as EventTarget & HTMLInputElement;
-    element.setCustomValidity('É necessário preencher!');
+  const handleInvalidTextarea = (event: InvalidEvent<HTMLTextAreaElement>) => {
+    // const element = target as EventTarget & HTMLInputElement;
+    event.target.setCustomValidity('É necessário preencher!');
   }
 
   const isTextareaEmpty = contentComment.length === 0;
@@ -114,9 +114,9 @@ export function Post({ author, content, publishedAt }: PostType) {
         <textarea
           value={contentComment}
           placeholder='Deixe um comentário'
-          onChange={({ target }) => handleChangeTextarea(target)}
+          onChange={handleChangeTextarea}
           required
-          onInvalid={(event) => handleInvalidTextarea(event.target)}
+          onInvalid={handleInvalidTextarea}
         />
 
         <footer>

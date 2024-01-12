@@ -35,7 +35,7 @@ export function Comment({ id, content, onDeleteComment }: CommentType) {
         </div>
 
         <footer>
-          <button onClick={() => setAplauseCont(aplauseCont + 1)}>
+          <button onClick={() => setAplauseCont((state) => state + 1)}>
             <ThumbsUp />
             Aplaudir <span>{aplauseCont}</span>
           </button>
