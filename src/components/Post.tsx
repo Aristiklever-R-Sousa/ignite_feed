@@ -1,16 +1,25 @@
 import styles from './Post.module.css';
 
+import { Avatar } from './Avatar';
+import { Comment } from './Comment';
+
 type Author = {
   name: string,
   position: string,
 }
 
-export function Post({ author, content }: { author: Author, content: string }) {
+type PostType = {
+  author: Author,
+  content: string,
+}
+
+export function Post({ author, content }: PostType) {
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <img className={styles.avatar} src="https://github.com/Aristiklever-R-Sousa.png" />
+          <Avatar src='https://github.com/Aristiklever-R-Sousa.png' />
+
           <div className={styles.authorInfo}>
             <strong>{author.name}</strong>
             <span>{author.position}</span>
@@ -42,6 +51,13 @@ export function Post({ author, content }: { author: Author, content: string }) {
 
         <footer><button type='submit'>Publicar</button></footer>
       </form>
+
+      <div className={styles.commentList}>
+        <Comment />
+        <Comment />
+        <Comment />
+      </div>
+
     </article>
   );
 }
